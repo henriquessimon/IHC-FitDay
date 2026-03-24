@@ -1,0 +1,10 @@
+:root {
+    /*CORES PADRÃO*/
+    --bg-color: #f2f2f2;
+    --text-color: #252525;
+    --header-color: #d4d4d4;
+    /*CORES MODO DE CONTRASTE*/
+    --bg-color-ctr: #fff
+    --text-color-ctr: #000
+    --card-color-ctr: #fff
+}

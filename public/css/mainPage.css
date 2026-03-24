@@ -1,0 +1,25 @@
+.cardsConteiner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+}
+
+.dayCard {
+    width: 50%;
+    margin: 20px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.dayCard label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.divsCard {
+    margin: 8px;
+}
