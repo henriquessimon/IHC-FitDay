@@ -1,25 +1,406 @@
+/*CONTEINER GERAL*/
 .cardsConteiner {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    height: calc(100dvh - 50px);
     width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-flow: column;
-    align-items: center;
+    overflow: hidden;
 }
 
+/*BASE DO CARD*/
 .dayCard {
-    width: 50%;
-    margin: 20px;
-    padding: 10px 14px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset -1px 0 rgba(0,0,0,0.2);
+    color: var(--text-color-cards);
+    background-color: var(--card-color);
+    /* Efeito de blur */
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+
+    /* IMPORTANTE: Use background-color ao invés de cores inline */
+    /* As cores inline estão sobrescrevendo isso */
 }
 
-.dayCard label {
-    font-size: 18px;
-    font-weight: bold;
+body:not(.escuro):not(.claro) .dayCard:nth-child(1) { 
+    background: linear-gradient(to right, #f8b9e3, #f7a0a0);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(2) { 
+    background: linear-gradient(to right, #f7a0a0, #f1c97f);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(3) { 
+    background: linear-gradient(to right, #f1c97f, #e9f391);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(4) { 
+    background: linear-gradient(to right, #e9f391, #adf7ad);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(5) { 
+    background: linear-gradient(to right, #adf7ad, #9ae8ee);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(6) { 
+    background: linear-gradient(to right, #9ae8ee, #e5b9fa);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(7) { 
+    background: linear-gradient(to right, #e5b9fa, #f8b9e3);
+}
+
+body:not(.escuro):not(.claro) select { 
+    background-color: #f2f2f2;
+}
+
+.dayCard:not(:last-child) {
+    border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+.dayCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+/*PARTES INDIVIDUAIS DO CARD*/
+.dateDiv {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    padding-right: 12px;
+}
+
+.headerDayCard {
+    display: flex;
+    flex-flow: column;
+    row-gap: 15px;
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 5px var(--bg-color) solid;
+}
+
+.BodyDayCard {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+.BodyDayCard section{
     margin-bottom: 7px;
+    margin-top: 7px;
 }
 
-.divsCard {
-    margin: 8px;
+.addMetaDia {
+    display: flex;
+    flex-flow: column;
+    row-gap: 15px;
+}
+
+/*BOTÕES*/
+button {
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    color: var(--text-color);
+    border: 4px solid var(--bg-color);
+    cursor: pointer;
+
+    background: var(--bg-color);
+    backdrop-filter: blur(4 px);
+
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+button:hover {
+    background: transparent;
+    color: var(--text-color-cards);
+}
+
+.addMetaTreino {
+    width: 200px;
+}
+
+.inserirHoraInicioTreino {
+    width: 100px;
+}
+
+/*BARRA DE PROGRESSO*/
+progress {
+    width: 30%;
+    height: 10px;
+    background-color: var(--barras-bg);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid #252525;
+}
+
+.metaAguaSection div, .addMetaDia div {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+
+.metaAguaSection div div, .addMetaDia div div {
+    margin: 0px;
+}
+
+.timerButton {
+    position: relative;
+    margin-left: 10px;
+    bottom: 10px;
+}
+
+.addMetaDia button:not(.pausa) {
+    background-color: #3a723c;
+    border-color: transparent;
+}
+
+.addMetaDia button:not(.pausa):hover {
+    background-color: #51ff57;
+}
+
+/*INPUTS*/
+input[type="number"] {
+    padding: 6px 8px;
+    border: none;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    width: 50px;
+}
+
+input[type="time"] {
+    border-radius: 7px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* muda a cor (tipo hack) */
+    cursor: pointer;
+}
+
+input:focus {
+    outline: 2px solid #000;
+}
+
+/*ESPAÇAMENTO*/
+.BodyDayCard {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.meta_exercicio,
+.meta.agua {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+@media (max-width: 900px) {
+    .cardsConteiner {
+        grid-template-columns: repeat(2, 1fr);
+        height: auto;
+    }
+
+    .dayCard {
+        height: auto;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 500px) {
+    .cardsConteiner {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*MENU DE CONFIGS*/
+.configMenuBox {
+    position: absolute;
+    top: 150%;
+    left: -500%;
+    width: 200px;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.3s ease;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    border-radius: 7px;
+    box-shadow: -15px 5px 15px var(--shadow-box-config);
+    background-color: var(--bg-config);
+    color: var(--text-color-config);
+}
+
+/* HOVER NO PAI */
+.configMenuBox.active{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.configMenuBox ul {
+    display: flex;
+    flex-flow: column;
+    row-gap: 10px;
+    padding: 0px;
+}
+
+.configMenuBox ul li {
+    box-sizing: border-box;
+    padding: 0 4px 0 15px;
+}
+
+header nav ul {
+    display: flex;
+    flex-flow: row;
+    column-gap: 15px;
+}
+
+header nav ul li {
+    color: var(--text-color);
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 7px;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+header nav ul li:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+/*SLIDER CONFIG MODO DE CONTRASTE*/
+
+.switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* esconde o checkbox padrão */
+.switch input {
+    display: none;
+}
+
+/* trilho */
+.slider {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #555;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+/* bolinha */
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 2px;
+    top: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+/* estado ON */
+.switch input:checked + .slider {
+    background-color: #4caf50;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+/*SELECT CONFIG*/
+
+.selectTemaLabel {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* SELECT */
+select {
+    appearance: none; /* remove estilo padrão */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: var(--card-color);
+    color: var(--text-color-cards);
+
+    border: 1px solid #2e2a7b;
+    border-radius: 6px;
+
+    padding: 8px 8px 8px 10px;
+    font-size: 14px;
+    width: 100px;
+    cursor: pointer;
+    outline: none;
+
+    transition: 0.2s;
+}
+
+/* hover */
+select:hover {
+    border-color: #da28d1;
+}
+
+/* focus (quando clica) */
+select:focus {
+    border-color: #fa1c4c;
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+/* seta custom */
+.selectTemaLabel {
+    position: relative;
+}
+
+.selectTemaLabel::after {
+    content: "▼";
+    position: absolute;
+    right: 25%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #aaa;
+    pointer-events: none;
+}
+
+/*STATUS DO DIA*/
+
+.statusBox {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 7px 10px;
+    border-radius: 7px;
+}
+
+/*BOTÃO INICIA/PAUSA*/
+
+.inicia {
+    background-color: #3a723c;
+}
+
+.pausa {
+    background-color: #ff0000;
 }

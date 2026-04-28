@@ -1,10 +1,41 @@
-:root {
-    /*CORES PADRÃO*/
-    --bg-color: #f2f2f2;
-    --text-color: #252525;
-    --header-color: #d4d4d4;
-    /*CORES MODO DE CONTRASTE*/
-    --bg-color-ctr: #fff
-    --text-color-ctr: #000
-    --card-color-ctr: #fff
+body.colorido {
+    /*MODO COLORIDO*/
+    --bg-color: #222; /*CABEÇALHO BOTÕES ETC*/
+    --text-color: #ededed;
+    --text-color-cards: #252525;
+    --barras-bg: #00000042;
+    --bg-config: #ededed;
+    --text-color-config: #252525;
+    --shadow-box-config: #00000062;
+    --shadow-box-header: #00000062;
+}
+
+body.escuro {
+    --bg-color: #0f1115;
+    --text-color: #f2f2f2;
+    --card-color: #212429;
+    --text-color-cards: #f2f2f2;
+    --barras-bg: #ffffffc2;
+    --bg-config: #f2f2f2;
+    --text-color-config: #252525;
+    --shadow-box-config: #ffffff75;
+    --shadow-box-header: #ffffff75;
+}
+
+body.claro {
+    --bg-color: #cfcdcd;
+    --text-color: #222;
+    --card-color: #f2f2f2;
+    --text-color-cards: #252525;
+    --barras-bg: #00000042;
+    --bg-config: #252525;
+    --text-color-config: #ededed;
+    --shadow-box-config: #00000042;
+    --shadow-box-header: #00000062;
+}
+
+body.contraste {
+    --bg-color: #fff
+    --text-color: #000
+    --text-color-cards: #fff;
 }
