@@ -1,0 +1,473 @@
+/* =========================
+   BODY
+========================= */
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* =========================
+   TEMA COLORIDO
+========================= */
+
+body:not(.escuro):not(.claro) .cardResumo:nth-child(1) {
+    background:
+        linear-gradient(
+            to right,
+            #f8b9e3,
+            #f7a0a0
+        );
+}
+
+body:not(.escuro):not(.claro) .cardResumo:nth-child(2) {
+    background:
+        linear-gradient(
+            to right,
+            #f7a0a0,
+            #f1c97f
+        );
+}
+
+body:not(.escuro):not(.claro) .cardResumo:nth-child(3) {
+    background:
+        linear-gradient(
+            to right,
+            #9ae8ee,
+            #e5b9fa
+        );
+}
+
+/* =========================
+   PROGRESSOS
+========================= */
+
+body:not(.escuro):not(.claro) .progressoCard:nth-child(1) {
+    background:
+        linear-gradient(
+            to right,
+            #e9f391,
+            #adf7ad
+        );
+}
+
+body:not(.escuro):not(.claro) .progressoCard:nth-child(2) {
+    background:
+        linear-gradient(
+            to right,
+            #adf7ad,
+            #9ae8ee
+        );
+}
+
+/* =========================
+   ROTINA
+========================= */
+
+body:not(.escuro):not(.claro) .rotinaSection {
+    background:
+        linear-gradient(
+            135deg,
+            #e5b9fa,
+            #f8b9e3
+        );
+}
+
+/* =========================
+   DETALHES
+========================= */
+
+body:not(.escuro):not(.claro) .detalhesSection {
+    background:
+        linear-gradient(
+            135deg,
+            #9ae8ee,
+            #e5b9fa
+        );
+}
+
+body:not(.escuro):not(.claro)
+.progressoCard progress::-webkit-progress-value {
+
+    background:
+        linear-gradient(
+            to right,
+            #7c3aed,
+            #06b6d4
+        );
+}
+/* =========================
+   CONTAINER
+========================= */
+
+.estatisticasContainer {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* =========================
+   CARDS RESUMO
+========================= */
+
+.resumoCards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 20px;
+}
+
+.cardResumo {
+    background: var(--card-color);
+
+    color: var(--text-color-cards);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 4px 12px var(--shadow-box-header);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.cardResumo:hover {
+    transform: translateY(-4px);
+}
+
+.cardResumo h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+
+    opacity: 0.9;
+}
+
+.valorPrincipal {
+    font-size: 2rem;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.cardResumo p {
+    opacity: 0.75;
+    line-height: 1.4;
+}
+
+/* =========================
+   PROGRESSOS
+========================= */
+
+.progressoSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.progressoCard {
+    background: var(--card-color);
+
+    color: var(--text-color-cards);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 4px 12px var(--shadow-box-header);
+}
+
+.tituloLinha {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.tituloLinha h2 {
+    font-size: 1.1rem;
+}
+
+.tituloLinha span {
+    font-weight: bold;
+}
+
+/* =========================
+   BARRAS
+========================= */
+
+.progressoCard progress {
+    width: 100%;
+    height: 18px;
+
+    appearance: none;
+
+    overflow: hidden;
+
+    border: none;
+    border-radius: 999px;
+}
+
+.progressoCard progress::-webkit-progress-bar {
+    background: var(--barras-bg);
+}
+
+.progressoCard progress::-webkit-progress-value {
+    background:
+        linear-gradient(
+            90deg,
+            #4ade80,
+            #22c55e
+        );
+
+    border-radius: 999px;
+}
+
+/* =========================
+   ROTINA SEMANAL
+========================= */
+
+.rotinaSection {
+    background: var(--card-color);
+
+    color: var(--text-color-cards);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 4px 12px var(--shadow-box-header);
+}
+
+.rotinaSection h2 {
+    margin-bottom: 25px;
+}
+
+.diasSemana {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(90px, 1fr));
+
+    gap: 15px;
+}
+
+.diaStatus {
+    height: 100px;
+
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    font-weight: bold;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.diaStatus:hover {
+    transform: scale(1.03);
+}
+
+.diaStatus h3 {
+    font-size: 1rem;
+}
+
+.diaStatus span {
+    font-size: 1.4rem;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.concluido {
+    background: rgba(34,197,94,0.18);
+    border: 2px solid #22c55e;
+}
+
+.falhou {
+    background: rgba(239,68,68,0.18);
+    border: 2px solid #ef4444;
+}
+
+.pendente {
+    background: rgba(234,179,8,0.18);
+    border: 2px solid #eab308;
+}
+
+.descanso {
+    background: rgba(120,120,120,0.18);
+    border: 2px solid rgba(255,255,255,0.15);
+}
+
+/* =========================
+   DETALHES
+========================= */
+
+.detalhesSection {
+    background: var(--card-color);
+
+    color: var(--text-color-cards);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 4px 12px var(--shadow-box-header);
+}
+
+.detalhesSection h2 {
+    margin-bottom: 20px;
+}
+
+.detalhesLista {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.detalheItem {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background: var(--barras-bg);
+
+    transition: 0.2s ease;
+}
+
+.detalheItem:hover {
+    transform: translateX(4px);
+}
+
+.detalheItem span {
+    opacity: 0.85;
+}
+
+.detalheItem strong {
+    font-size: 1rem;
+}
+
+/* =========================
+   NAV ATIVA
+========================= */
+
+.activePage {
+    position: relative;
+
+    font-weight: bold;
+}
+
+.activePage::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -6px;
+
+    width: 100%;
+    height: 3px;
+
+    border-radius: 999px;
+
+    background: #22c55e;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 768px) {
+
+    .estatisticasContainer {
+        padding: 20px;
+        max-width: 300px;
+    }
+
+    .valorPrincipal {
+        font-size: 1.5rem;
+    }
+
+    .diaStatus {
+        height: 85px;
+    }
+
+    .detalheItem {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+}
+
+.rotinaLegenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 12px 0 20px;
+}
+
+.legendaItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legendaCor {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legendaCor.concluido {
+    background: #22c55e;
+}
+
+.legendaCor.falhou {
+    background: #ef4444;
+}
+
+.legendaCor.pendente {
+    background: #facc15;
+}
+
+.legendaCor.descanso {
+    background: #94a3b8;
+}
+
+.legendaItem small {
+    font-size: 0.85rem;
+    color: var(--text-color-cards);
+}
+

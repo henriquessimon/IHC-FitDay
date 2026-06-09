@@ -2,6 +2,12 @@ body, h1, h2, h3, h4, h5, h6, p, a, li, ul {
     margin: 0;
 }
 
+body {
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
 a {
     text-decoration: none;
 }
@@ -18,16 +24,34 @@ body {
     font-size: 16px;
     height: 100dvh;
     font-weight: bold;
-    margin-top: 50px;
-    overflow-y: hidden;
 }
 
 ul {
     list-style: none;
 }
 
+header nav ul {
+    display: flex;
+    flex-flow: row;
+    column-gap: 15px;
+}
+
+header nav ul li {
+    color: var(--text-color);
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 7px;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+header nav ul li:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
 .headerPage {
-    position: fixed;
+    position: relative;
     top: 0;
     right: 0;
     padding: 10px 30px;
@@ -47,4 +71,364 @@ ul {
 
 .headerPage div {
     position: relative;
+}
+
+/*MENU DE CONFIGS*/
+.configMenuBox {
+    display: none;
+}
+
+.configMenuBox.active {
+    display: flex;
+    position: absolute;
+    top: 150%;
+    left: -450%;
+    width: 200px;
+
+    z-index: 10;
+
+    transform: translateY(0);
+    transition: 0.3s ease;
+
+    pointer-events: auto;
+
+    flex-direction: column;
+    padding: 10px 0;
+    border-radius: 7px;
+
+    box-shadow: -15px 5px 15px var(--shadow-box-config);
+    background-color: var(--bg-config);
+    color: var(--text-color-config);
+}
+
+.configMenuBox ul {
+    display: flex;
+    flex-flow: column;
+    row-gap: 10px;
+    padding: 0px;
+}
+
+.configMenuBox ul li {
+    box-sizing: border-box;
+    padding: 0 4px 0 15px;
+}
+
+/*SLIDER CONFIG MODO DE CONTRASTE*/
+.switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #555;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 2px;
+    top: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+    background-color: #4caf50;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+/*SELECT CONFIG*/
+.selectTemaLabel {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    font-size: 14px;
+    width: 100%;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--card-color);
+    color: var(--text-color-cards);
+    border: 1px solid #2e2a7b;
+    border-radius: 6px;
+    padding: 8px 8px 8px 10px;
+    font-size: 14px;
+    width: 100px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+select:hover {
+    border-color: #da28d1;
+}
+
+select:focus {
+    border-color: #fa1c4c;
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+.selectTemaLabel {
+    position: relative;
+}
+
+.selectTemaLabel span {
+    position: relative;
+    top: 40%;
+}
+
+.selectTemaLabel::after {
+    content: "▼";
+    position: absolute;
+    right: 25%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #aaa;
+    pointer-events: none;
+}
+
+body:not(.escuro):not(.claro) select { 
+    background-color: #f2f2f2;
+}
+
+.rightHeader {
+    display: flex;
+    justify-content: space-around;
+}
+
+.rightHeader div {
+    margin: 0px 10px
+}
+
+.userWrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.userIcon {
+    color: white;
+    padding: 0px;
+    position: relative;
+    bottom: 5px;
+}
+
+.userIcon:hover {
+    color: white;
+}
+
+.configButton {
+    padding: 0px;
+    position: relative;
+    bottom: 5px;
+}
+
+.userMenu {
+    display: none;
+    opacity: 0;
+}
+
+.userMenu.active {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    position: absolute;
+    top: 150%;
+    right: 0;
+    width: 180px;
+
+    background-color: var(--bg-config);
+    border-radius: 10px;
+    padding: 10px;
+
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+
+    transition: opacity 0.3s ease,
+                transform 0.3s ease;
+
+    z-index: 100;
+}
+
+.userMenu button {
+    width: 100%;
+    z-index: 101;
+    border: none;
+}
+
+.userMenu button:focus-visible {
+    background: transparent;
+    color: var(--text-color-cards);
+}
+
+.deleteAccountButton {
+    background-color: #c62828;
+}
+
+.deleteAccountButton:hover {
+    background-color: #ff3d3d;
+}
+
+button {
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    color: var(--text-color);
+    border: 4px solid var(--bg-color);
+    cursor: pointer;
+    background: var(--bg-color);
+    backdrop-filter: blur(4 px);
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
+}
+
+/* quando abrir */
+.modalOverlay.active {
+    display: flex;
+}
+
+.modalBox {
+    position: relative;
+
+    width: 90%;
+    max-width: 420px;
+
+    background: #1f1f1f;
+    color: white;
+
+    border-radius: 12px;
+
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modalBox h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.modalBox p {
+    margin: 0;
+    color: #d4d4d4;
+    line-height: 1.5;
+}
+
+.modalBox input {
+    width: 94%;
+
+    padding: 12px;
+
+    border-radius: 8px;
+    border: 1px solid #444;
+
+    background: #2b2b2b;
+    color: white;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    margin-top: 8px;
+}
+
+.cancelButton,
+.confirmDeleteButton {
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 16px;
+
+    cursor: pointer;
+
+    font-size: 0.95rem;
+
+    transition: background 0.5s ease;
+}
+
+.cancelButton {
+    background: #3a3a3a;
+    color: white;
+}
+
+.cancelButton:hover {
+    background: #555454;
+    color: white;
+}
+
+.confirmDeleteButton:hover {
+    background: #e45757;
+    color: white;
+}
+
+.confirmDeleteButton {
+    background: #c62828;
+    color: white;
+}
+
+.closeModalButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    background: none;
+    border: none;
+
+    color: white;
+    font-size: 24px;
+
+    cursor: pointer;
+}
+
+.buttonsNavigation {
+    padding: 0px 0px;
+    font-size: 18px;
+    border-radius: 0px;
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    background: none;
+    backdrop-filter: none;
+    transition: none;
+}
+
+.buttonsNavigation:hover {
+    color: var(--text-color-cards) !important;
 }

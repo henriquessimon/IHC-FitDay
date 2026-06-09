@@ -27,27 +27,13 @@ export function DayCard(diaRotina) {
         `;
     }
 
-    if(diaRotina.hora) { //CASO O USUARIO JA TENHA SELECIONADO A HORA
-        hora = `
-            <time>${diaRotina.hora}</time>
-        `
-    } else { // CASO ELE NÃO TENHA SELECIONADO A HORA
-        hora = `
-            <label>Hora <input type="time"/></label>
-        `
-    }
-
-
     //RETORNAMOS O HTML DO CARD DO DIA FORMATADO CORRETAMENTE PARA INSERIR NA TELA
     return `
         <article class="dayCard" data-day="${diaRotina.dia}">
             <header class="headerDayCard divsCard">
                 <div class="dateDiv">
                     <h2>${diaRotina.dia}</h2>
-                    ${hora}
-                </div>
-                <div>
-                    <span class="statusBox">${diaRotina.status}</span>
+                    <label>Hora <input type="time" class="horaTreino"/></label>
                 </div>
             </header>
             <section class="BodyDayCard divsCard">
@@ -56,7 +42,7 @@ export function DayCard(diaRotina) {
                         
                             <h3>Exercício</h3>
                             <div>
-                                <label for="metaTreino">Tempo de treino</label>
+                                <label for="metaTreino">Tempo de treino(h/m)</label>
                                 <input type="time" class="metaTreino" name="metaTreino">
                             </div>
                             <div>
@@ -93,6 +79,15 @@ export function DayCard(diaRotina) {
                     </div>
                 </section>
             </section>
+            <div class="dayButtons">
+                <button class="dayNavigationButton previousDayButton">
+                    ← Dia anterior
+                </button>
+
+                <button class="dayNavigationButton nextDayButton">
+                    Próximo dia →
+                </button>
+            </div>
         </article>
     `;
 }

@@ -1,7 +1,10 @@
+body {
+    overflow-y: hidden;
+}
+
 /*CONTEINER GERAL*/
 .cardsConteiner {
     flex: 1;
-
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     height: calc(100dvh - 50px);
@@ -20,38 +23,8 @@
     box-shadow: inset -1px 0 rgba(0,0,0,0.2);
     color: var(--text-color-cards);
     background-color: var(--card-color);
-    /* Efeito de blur */
     backdrop-filter: blur(12px) saturate(180%);
     -webkit-backdrop-filter: blur(12px) saturate(180%);
-
-    /* IMPORTANTE: Use background-color ao invés de cores inline */
-    /* As cores inline estão sobrescrevendo isso */
-}
-
-body:not(.escuro):not(.claro) .dayCard:nth-child(1) { 
-    background: linear-gradient(to right, #f8b9e3, #f7a0a0);
-}
-body:not(.escuro):not(.claro) .dayCard:nth-child(2) { 
-    background: linear-gradient(to right, #f7a0a0, #f1c97f);
-}
-body:not(.escuro):not(.claro) .dayCard:nth-child(3) { 
-    background: linear-gradient(to right, #f1c97f, #e9f391);
-}
-body:not(.escuro):not(.claro) .dayCard:nth-child(4) { 
-    background: linear-gradient(to right, #e9f391, #adf7ad);
-}
-body:not(.escuro):not(.claro) .dayCard:nth-child(5) { 
-    background: linear-gradient(to right, #adf7ad, #9ae8ee);
-}
-body:not(.escuro):not(.claro) .dayCard:nth-child(6) { 
-    background: linear-gradient(to right, #9ae8ee, #e5b9fa);
-}
-body:not(.escuro):not(.claro) .dayCard:nth-child(7) { 
-    background: linear-gradient(to right, #e5b9fa, #f8b9e3);
-}
-
-body:not(.escuro):not(.claro) select { 
-    background-color: #f2f2f2;
 }
 
 .dayCard:not(:last-child) {
@@ -103,19 +76,6 @@ body:not(.escuro):not(.claro) select {
 }
 
 /*BOTÕES*/
-button {
-    padding: 8px 10px;
-    font-size: 13px;
-    border-radius: 6px;
-    color: var(--text-color);
-    border: 4px solid var(--bg-color);
-    cursor: pointer;
-
-    background: var(--bg-color);
-    backdrop-filter: blur(4 px);
-
-    transition: background 0.4s ease, color 0.4s ease;
-}
 
 button:hover {
     background: transparent;
@@ -183,7 +143,7 @@ input[type="time"] {
 }
 
 input[type="time"]::-webkit-calendar-picker-indicator {
-    filter: invert(1); /* muda a cor (tipo hack) */
+    filter: invert(1);
     cursor: pointer;
 }
 
@@ -205,189 +165,176 @@ input:focus {
     gap: 6px;
 }
 
+/* ========== VERSÃO MOBILE MELHORADA ========== */
 @media (max-width: 900px) {
     .cardsConteiner {
-        grid-template-columns: repeat(2, 1fr);
-        height: auto;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--text-color) transparent;
+        width: 100%;
+        height: calc(100dvh - 50px);
+        padding: 0;
+        gap: 0;
+        touch-action: pan-x pan-y;
+        position: relative;
+    }
+
+    /* Scrollbar personalizada */
+    .cardsConteiner::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .cardsConteiner::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .cardsConteiner::-webkit-scrollbar-thumb {
+        background-color: var(--text-color);
+        border-radius: 10px;
     }
 
     .dayCard {
-        height: auto;
-        border-radius: 12px;
+        flex: 0 0 100%;
+        width: 100%;
+        scroll-snap-align: start;
+        border-radius: 0;
+        min-height: 100%;
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+
+    /* Esconde os botões de navegação originais */
+    .nav-button {
+        display: none;
+    }
+
+    /* Indicadores de página */
+    .page-indicators {
+        display: flex;
+        position: fixed;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 10px;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        padding: 8px 15px;
+        border-radius: 30px;
+    }
+
+    .indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .indicator.active {
+        width: 24px;
+        border-radius: 4px;
+        background-color: white;
+    }
+
+    /* Botões de navegação flutuantes */
+    .nav-arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+        transition: all 0.3s ease;
+        border: none;
+        color: white;
+        font-size: 24px;
+    }
+
+    .nav-arrow:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .nav-arrow-left {
+        left: 10px;
+    }
+
+    .nav-arrow-right {
+        right: 10px;
+    }
+
+    /* Header adaptativo no mobile */
+    .headerDayCard {
+        padding: 15px;
+        row-gap: 10px;
+    }
+
+    .dateDiv {
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+
+    /* Ajusta os botões no mobile */
+    .addMetaTreino {
+        width: 100%;
+    }
+
+    /* Inputs responsivos */
+    input[type="number"] {
+        width: 60px;
+    }
+
+    /* Melhora touch targets */
+    button, 
+    .addMetaDia button,
+    .statusBox {
+        min-height: 44px;
+    }
+
+    /* Ajusta o conteúdo para não ficar colado */
+    .BodyDayCard {
+        padding: 15px;
     }
 }
 
 @media (max-width: 500px) {
-    .cardsConteiner {
-        grid-template-columns: 1fr;
+    .page-indicators {
+        bottom: 10px;
+        padding: 6px 12px;
+    }
+
+    .indicator {
+        width: 6px;
+        height: 6px;
+    }
+
+    .indicator.active {
+        width: 20px;
+    }
+
+    .nav-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
     }
 }
 
-/*MENU DE CONFIGS*/
-.configMenuBox {
-    position: absolute;
-    top: 150%;
-    left: -500%;
-    width: 200px;
-    z-index: 10;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: 0.3s ease;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    border-radius: 7px;
-    box-shadow: -15px 5px 15px var(--shadow-box-config);
-    background-color: var(--bg-config);
-    color: var(--text-color-config);
-}
-
-/* HOVER NO PAI */
-.configMenuBox.active{
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.configMenuBox ul {
-    display: flex;
-    flex-flow: column;
-    row-gap: 10px;
-    padding: 0px;
-}
-
-.configMenuBox ul li {
-    box-sizing: border-box;
-    padding: 0 4px 0 15px;
-}
-
-header nav ul {
-    display: flex;
-    flex-flow: row;
-    column-gap: 15px;
-}
-
-header nav ul li {
-    color: var(--text-color);
-    padding: 5px 15px;
-    cursor: pointer;
-    font-size: 18px;
-    border-radius: 7px;
-    transition: background 0.4s ease, color 0.4s ease;
-}
-
-header nav ul li:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-}
-
-/*SLIDER CONFIG MODO DE CONTRASTE*/
-
-.switch {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
-/* esconde o checkbox padrão */
-.switch input {
-    display: none;
-}
-
-/* trilho */
-.slider {
-    position: relative;
-    width: 40px;
-    height: 20px;
-    background-color: #555;
-    border-radius: 20px;
-    transition: 0.3s;
-}
-
-/* bolinha */
-.slider::before {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 2px;
-    top: 2px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.3s;
-}
-
-/* estado ON */
-.switch input:checked + .slider {
-    background-color: #4caf50;
-}
-
-.switch input:checked + .slider::before {
-    transform: translateX(20px);
-}
-
-/*SELECT CONFIG*/
-
-.selectTemaLabel {
-    display: flex;
-    flex-direction: row;
-    column-gap: 10px;
-    font-size: 14px;
-    width: 100%;
-}
-
-/* SELECT */
-select {
-    appearance: none; /* remove estilo padrão */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    background-color: var(--card-color);
-    color: var(--text-color-cards);
-
-    border: 1px solid #2e2a7b;
-    border-radius: 6px;
-
-    padding: 8px 8px 8px 10px;
-    font-size: 14px;
-    width: 100px;
-    cursor: pointer;
-    outline: none;
-
-    transition: 0.2s;
-}
-
-/* hover */
-select:hover {
-    border-color: #da28d1;
-}
-
-/* focus (quando clica) */
-select:focus {
-    border-color: #fa1c4c;
-    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
-}
-
-/* seta custom */
-.selectTemaLabel {
-    position: relative;
-}
-
-.selectTemaLabel::after {
-    content: "▼";
-    position: absolute;
-    right: 25%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 10px;
-    color: #aaa;
-    pointer-events: none;
-}
-
 /*STATUS DO DIA*/
-
 .statusBox {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -396,11 +343,52 @@ select:focus {
 }
 
 /*BOTÃO INICIA/PAUSA*/
-
 .inicia {
     background-color: #3a723c;
 }
 
 .pausa {
     background-color: #ff0000;
+}
+
+body:not(.escuro):not(.claro) .dayCard:nth-child(1) { 
+    background: linear-gradient(to right, #f8b9e3, #f7a0a0);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(2) { 
+    background: linear-gradient(to right, #f7a0a0, #f1c97f);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(3) { 
+    background: linear-gradient(to right, #f1c97f, #e9f391);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(4) { 
+    background: linear-gradient(to right, #e9f391, #adf7ad);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(5) { 
+    background: linear-gradient(to right, #adf7ad, #9ae8ee);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(6) { 
+    background: linear-gradient(to right, #9ae8ee, #e5b9fa);
+}
+body:not(.escuro):not(.claro) .dayCard:nth-child(7) { 
+    background: linear-gradient(to right, #e5b9fa, #f8b9e3);
+}
+
+.dayButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+
+.dayNavigationButton {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .dayNavigationButton {
+        display: block;
+        padding: 8px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
 }

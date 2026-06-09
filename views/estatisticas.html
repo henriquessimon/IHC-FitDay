@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estatísticas - FitDay</title>
+
+    <script type="module" src="../public/js/Estatisticas.js"></script>
+    <script type="module" src="../public/js/Navigation.js"></script>
+    <script type="module" src="../public/js/Global.js"></script>
+
+    <link rel="stylesheet" href="../public/css/variaveis.css">
+    <link rel="stylesheet" href="../public/css/global.css">
+    <link rel="stylesheet" href="../public/css/estatisticas.css">
+</head>
+
+<body class="colorido">
+    <div id="deleteAccountModal" class="modalOverlay hidden">
+
+        <div class="modalBox">
+
+            <button class="closeModalButton" id="closeDeleteModal">
+                ×
+            </button>
+
+            <h2>Excluir conta</h2>
+
+            <p>
+                Tem certeza que deseja excluir sua conta?
+                Essa ação não poderá ser desfeita.
+            </p>
+
+            <label for="confirmPassword">
+                Digite sua senha para confirmar:
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Sua senha"
+            />
+
+            <div class="modalActions">
+
+                <button
+                    type="button"
+                    class="cancelButton"
+                    id="cancelDeleteAccount"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="button"
+                    class="confirmDeleteButton"
+                    id="confirmDeleteAccount"
+                >
+                    Excluir conta
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HEADER -->
+    <header class="headerPage">
+        
+    </header>    
+
+    <!-- CONTEÚDO -->
+    <main class="estatisticasContainer">
+        <h2 class="userNameTitle"></h2>
+        <!-- RESUMO -->
+        <section class="resumoCards">
+
+            <article class="cardResumo">
+                <h2>Tempo Treinado</h2>
+
+                <div class="valorPrincipal" id="tempoTreinadoSemana">
+                    00h 00m / 00h 00m
+                </div>
+
+                <p>
+                    Tempo realizado na semana
+                </p>
+            </article>
+
+            <article class="cardResumo">
+                <h2>Água Consumida</h2>
+
+                <div class="valorPrincipal" id="aguaSemana">
+                    0ml / 0ml
+                </div>
+
+                <p>
+                    Meta semanal de hidratação
+                </p>
+            </article>
+
+            <article class="cardResumo">
+                <h2>Consistência</h2>
+
+                <div class="valorPrincipal" id="consistenciaSemana">
+                    0%
+                </div>
+
+                <p>
+                    Dias concluídos corretamente
+                </p>
+            </article>
+
+        </section>
+
+        <!-- PROGRESSOS -->
+        <section class="progressoSection">
+
+            <article class="progressoCard">
+
+                <div class="tituloLinha">
+                    <h2>Treino Semanal</h2>
+                    <span id="treinoPercentText">0%</span>
+                </div>
+
+                <progress value="0" max="100" id="treinoProgress"></progress>
+
+            </article>
+
+            <article class="progressoCard">
+
+                <div class="tituloLinha">
+                    <h2>Hidratação Semanal</h2>
+                    <span id="aguaPercentText">0%</span>
+                </div>
+
+                <progress value="0" max="100" id="aguaProgress"></progress>
+
+            </article>
+
+        </section>
+
+        <!-- ROTINA -->
+        <section class="rotinaSection">
+
+            <h2>Rotina da Semana</h2>
+
+            <div class="rotinaLegenda">
+
+                <div class="legendaItem">
+                    <span class="legendaCor concluido"></span>
+                    <small>Concluído</small>
+                </div>
+
+                <div class="legendaItem">
+                    <span class="legendaCor falhou"></span>
+                    <small>Falhou</small>
+                </div>
+
+                <div class="legendaItem">
+                    <span class="legendaCor pendente"></span>
+                    <small>Pendente</small>
+                </div>
+
+                <div class="legendaItem">
+                    <span class="legendaCor descanso"></span>
+                    <small>Descanso</small>
+                </div>
+
+            </div>
+
+            <div class="diasSemana" id="diasSemana">
+
+        </section>
+
+        <!-- DETALHES -->
+        <section class="detalhesSection">
+
+            <h2>Detalhes da Semana</h2>
+
+            <div class="detalhesLista" id="detalhesLista">
+
+                <article class="detalheItem">
+                    <span>Maior treino</span>
+                    <strong></strong>
+                </article>
+
+                <article class="detalheItem">
+                    <span>Menor hidratação</span>
+                    <strong></strong>
+                </article>
+
+                <article class="detalheItem">
+                    <span>Dias completos</span>
+                    <strong></strong>
+                </article>
+
+                <article class="detalheItem">
+                    <span>Dias falhos</span>
+                    <strong></strong>
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
