@@ -11,6 +11,8 @@ export const defaultRotinaExercicios = [
         ultimaNotificacaoAgua18: null,
         ultimaNotificacaoAgua22: null,
         notificacaoTreinoCompleto: false,
+        metaTreinoStatus: "Não Iniciado",
+        metaAguaStatus: "Não Iniciado"
     },
     {
         dia: "Segunda",
@@ -24,6 +26,8 @@ export const defaultRotinaExercicios = [
         ultimaNotificacaoAgua18: null,
         ultimaNotificacaoAgua22: null,
         notificacaoTreinoCompleto: false,
+        metaTreinoStatus: "Não Iniciado",
+        metaAguaStatus: "Não Iniciado"
     },
     {
         dia: "Terça",
@@ -37,6 +41,8 @@ export const defaultRotinaExercicios = [
         ultimaNotificacaoAgua18: null,
         ultimaNotificacaoAgua22: null,
         notificacaoTreinoCompleto: false,
+        metaTreinoStatus: "Não Iniciado",
+        metaAguaStatus: "Não Iniciado"
     },
     {
         dia: "Quarta",
@@ -50,6 +56,8 @@ export const defaultRotinaExercicios = [
         ultimaNotificacaoAgua18: null,
         ultimaNotificacaoAgua22: null,
         notificacaoTreinoCompleto: false,
+        metaTreinoStatus: "Não Iniciado",
+        metaAguaStatus: "Não Iniciado"
     },
     {
         
@@ -64,6 +72,8 @@ export const defaultRotinaExercicios = [
         ultimaNotificacaoAgua18: null,
         ultimaNotificacaoAgua22: null,
         notificacaoTreinoCompleto: false,
+        metaTreinoStatus: "Não Iniciado",
+        metaAguaStatus: "Não Iniciado"
     },
     {
         dia: "Sexta",
@@ -77,6 +87,8 @@ export const defaultRotinaExercicios = [
         ultimaNotificacaoAgua18: null,
         ultimaNotificacaoAgua22: null,
         notificacaoTreinoCompleto: false,
+        metaTreinoStatus: "Não Iniciado",
+        metaAguaStatus: "Não Iniciado"
     },
     {
         dia: "Sábado",
@@ -90,6 +102,8 @@ export const defaultRotinaExercicios = [
         ultimaNotificacaoAgua18: null,
         ultimaNotificacaoAgua22: null,
         notificacaoTreinoCompleto: false,
+        metaTreinoStatus: "Não Iniciado",
+        metaAguaStatus: "Não Iniciado"
     }
 ]
 
@@ -109,10 +123,17 @@ export function saveRotina(rotinaAtualizada) {
     const users =
         JSON.parse(localStorage.getItem("users")) || [];
 
-    // atualiza rotina do usuário atual
-    currentUser.rotina = rotinaAtualizada;
+    // Cria uma cópia da rotina sem os intervalos
+    const rotinaSemInterval = structuredClone(rotinaAtualizada);
 
-    // atualiza no array geral
+    rotinaSemInterval.forEach(dia => {
+        delete dia.interval;
+    });
+
+    // Atualiza a rotina do usuário atual
+    currentUser.rotina = rotinaSemInterval;
+
+    // Atualiza no array geral
     const updatedUsers = users.map(user => {
 
         if(user.id === currentUser.id) {

@@ -267,30 +267,26 @@ body:not(.escuro):not(.claro)
 }
 
 .diaStatus {
-    height: 100px;
+    padding: 16px;
 
     border-radius: 16px;
+
+    background: var(--barras-bg);
 
     display: flex;
     flex-direction: column;
 
-    justify-content: center;
-    align-items: center;
+    gap: 12px;
 
-    gap: 10px;
-
-    font-weight: bold;
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
+    transition: .2s;
 }
 
 .diaStatus:hover {
-    transform: scale(1.03);
+    transform: translateY(-4px);
 }
 
 .diaStatus h3 {
+    text-align: center;
     font-size: 1rem;
 }
 
@@ -301,6 +297,40 @@ body:not(.escuro):not(.claro)
 /* =========================
    STATUS
 ========================= */
+
+.statusLinha {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statusBadge {
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.statusBadge.concluido {
+    background: rgba(34,197,94,.18);
+    color: #86efac;
+    border: 1px solid #22c55e;
+}
+
+.statusBadge.andamento {
+    background: rgba(234,179,8,.18);
+    color: #fde047;
+    border: 1px solid #eab308;
+}
+
+.statusBadge.naoIniciado {
+    background: rgba(168,85,247,.18);
+    color: #d8b4fe;
+    border: 1px solid #a855f7;
+}
 
 .concluido {
     background: rgba(34,197,94,0.18);
@@ -471,3 +501,73 @@ body:not(.escuro):not(.claro)
     color: var(--text-color-cards);
 }
 
+/* HERO */
+
+.heroStats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.heroSubtitle {
+    opacity: .75;
+    margin-top: 6px;
+}
+
+.heroBadge {
+    min-width: 120px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background: var(--card-color);
+
+    box-shadow:
+        0 4px 12px var(--shadow-box-header);
+}
+
+.heroBadge span {
+    font-size: 1.8rem;
+}
+
+.heroBadge strong {
+    font-size: 2rem;
+}
+
+/* HEADERS DE SEÇÃO */
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.sectionDescription {
+    opacity: .7;
+    font-size: 0.9rem;
+}
+
+/* ÍCONES DOS CARDS */
+
+.cardIcon {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* SUBTEXTO DAS BARRAS */
+
+.tituloLinha small {
+    display: block;
+    opacity: .7;
+    margin-top: 4px;
+    font-size: .8rem;
+}

@@ -31,6 +31,7 @@ export function Header() {
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        aria-label="Opções de usuário"
                     >
                         <circle cx="12" cy="8" r="4"/>
                         <path d="M5 20v-2a7 7 0 0 1 14 0v2"/>
@@ -58,6 +59,7 @@ export function Header() {
                         viewBox="0 0 24 24"
                         width="30"
                         height="30"
+                        aria-label="Preferências de Usuário"
                     >
                         <path fill="white" d="
                             M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.06-.94l2.03-1.58

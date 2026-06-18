@@ -71,70 +71,142 @@
 
     <!-- CONTEÚDO -->
     <main class="estatisticasContainer">
-        <h2 class="userNameTitle"></h2>
+
+        <!-- TÍTULO -->
+        <section class="heroStats">
+
+            <div class="heroInfo">
+                <h1 class="userNameTitle">
+                    Estatísticas da Semana
+                </h1>
+
+                <p class="heroSubtitle">
+                    Acompanhe sua evolução nos treinos e hidratação.
+                </p>
+            </div>
+
+            <div class="heroBadge">
+                <span>🔥</span>
+                <strong id="consistenciaSemana">
+                    0%
+                </strong>
+                <small>Consistência</small>
+            </div>
+
+        </section>
+
         <!-- RESUMO -->
         <section class="resumoCards">
 
             <article class="cardResumo">
+
+                <span class="cardIcon">🏋️</span>
+
                 <h2>Tempo Treinado</h2>
 
-                <div class="valorPrincipal" id="tempoTreinadoSemana">
+                <div
+                    class="valorPrincipal"
+                    id="tempoTreinadoSemana"
+                >
                     00h 00m / 00h 00m
                 </div>
 
                 <p>
                     Tempo realizado na semana
                 </p>
+
             </article>
 
             <article class="cardResumo">
+
+                <span class="cardIcon">💧</span>
+
                 <h2>Água Consumida</h2>
 
-                <div class="valorPrincipal" id="aguaSemana">
+                <div
+                    class="valorPrincipal"
+                    id="aguaSemana"
+                >
                     0ml / 0ml
                 </div>
 
                 <p>
                     Meta semanal de hidratação
                 </p>
+
             </article>
 
             <article class="cardResumo">
-                <h2>Consistência</h2>
 
-                <div class="valorPrincipal" id="consistenciaSemana">
-                    0%
+                <span class="cardIcon">🎯</span>
+
+                <h2>Metas Concluídas</h2>
+
+                <div
+                    class="valorPrincipal"
+                    id="diasCompletos"
+                >
+                    0/7
                 </div>
 
                 <p>
-                    Dias concluídos corretamente
+                    Dias concluídos com sucesso
                 </p>
+
             </article>
 
         </section>
 
-        <!-- PROGRESSOS -->
+        <!-- PROGRESSO -->
         <section class="progressoSection">
 
             <article class="progressoCard">
 
                 <div class="tituloLinha">
-                    <h2>Treino Semanal</h2>
-                    <span id="treinoPercentText">0%</span>
+
+                    <div>
+                        <h2>Treino Semanal</h2>
+                        <small>
+                            Evolução da meta de treino
+                        </small>
+                    </div>
+
+                    <span id="treinoPercentText">
+                        0%
+                    </span>
+
                 </div>
 
-                <progress value="0" max="100" id="treinoProgress"></progress>
+                <progress
+                    value="0"
+                    max="100"
+                    id="treinoProgress"
+                ></progress>
 
             </article>
 
             <article class="progressoCard">
 
                 <div class="tituloLinha">
-                    <h2>Hidratação Semanal</h2>
-                    <span id="aguaPercentText">0%</span>
+
+                    <div>
+                        <h2>Hidratação Semanal</h2>
+                        <small>
+                            Evolução da meta de água
+                        </small>
+                    </div>
+
+                    <span id="aguaPercentText">
+                        0%
+                    </span>
+
                 </div>
 
-                <progress value="0" max="100" id="aguaProgress"></progress>
+                <progress
+                    value="0"
+                    max="100"
+                    id="aguaProgress"
+                ></progress>
 
             </article>
 
@@ -143,7 +215,15 @@
         <!-- ROTINA -->
         <section class="rotinaSection">
 
-            <h2>Rotina da Semana</h2>
+            <div class="sectionHeader">
+
+                <h2>Rotina da Semana</h2>
+
+                <span class="sectionDescription">
+                    Situação atual de cada dia
+                </span>
+
+            </div>
 
             <div class="rotinaLegenda">
 
@@ -153,51 +233,92 @@
                 </div>
 
                 <div class="legendaItem">
-                    <span class="legendaCor falhou"></span>
-                    <small>Falhou</small>
+                    <span class="legendaCor andamento"></span>
+                    <small>Em andamento</small>
                 </div>
 
                 <div class="legendaItem">
-                    <span class="legendaCor pendente"></span>
-                    <small>Pendente</small>
-                </div>
-
-                <div class="legendaItem">
-                    <span class="legendaCor descanso"></span>
-                    <small>Descanso</small>
+                    <span class="legendaCor naoIniciado"></span>
+                    <small>Não iniciado</small>
                 </div>
 
             </div>
 
-            <div class="diasSemana" id="diasSemana">
+            <div
+                class="diasSemana"
+                id="diasSemana"
+            >
+
+                <!-- JS INJETA OS DIAS -->
+
+            </div>
 
         </section>
 
         <!-- DETALHES -->
         <section class="detalhesSection">
 
-            <h2>Detalhes da Semana</h2>
+            <div class="sectionHeader">
 
-            <div class="detalhesLista" id="detalhesLista">
+                <h2>Detalhes da Semana</h2>
+
+                <span class="sectionDescription">
+                    Informações complementares
+                </span>
+
+            </div>
+
+            <div
+                class="detalhesLista"
+                id="detalhesLista"
+            >
 
                 <article class="detalheItem">
-                    <span>Maior treino</span>
-                    <strong></strong>
+
+                    <div>
+                        <span>🏆 Maior treino</span>
+                    </div>
+
+                    <strong id="maiorTreino">
+                        --
+                    </strong>
+
                 </article>
 
                 <article class="detalheItem">
-                    <span>Menor hidratação</span>
-                    <strong></strong>
+
+                    <div>
+                        <span>💧 Menor hidratação</span>
+                    </div>
+
+                    <strong id="menorHidratacao">
+                        --
+                    </strong>
+
                 </article>
 
                 <article class="detalheItem">
-                    <span>Dias completos</span>
-                    <strong></strong>
+
+                    <div>
+                        <span>✅ Dias completos</span>
+                    </div>
+
+                    <strong id="diasCompletosDetalhe">
+                        0
+                    </strong>
+
                 </article>
 
                 <article class="detalheItem">
-                    <span>Dias falhos</span>
-                    <strong></strong>
+
+                    <div>
+                        <span>📊 Média diária</span>
+                    </div>
+
+                    <strong id="mediaDiaria">
+                        --
+                    </strong>
+
                 </article>
 
             </div>

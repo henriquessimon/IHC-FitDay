@@ -129,25 +129,36 @@ userMenu.addEventListener("click", (e) => {
 });
 
 function changeTema() {
-    const selectTema = document.getElementById('selectTema');
 
-    selectTema.addEventListener('change', () => {
-        const value = selectTema.value;
-        const bodyClass = document.body.classList
+    const selectTema = document.getElementById("selectTema");
 
-        if(value == bodyClass) {
-            return
-        } else if (value == "colorido") {
-            document.body.classList.remove("escuro", "claro");
-            document.body.classList.add("colorido")
-        } else if (value == "claro") {
-            document.body.classList.remove("escuro", "colorido");
-            document.body.classList.add("claro")
-        } else if (value == "escuro") {
-            document.body.classList.remove("colorido", "claro");
-            document.body.classList.add("escuro")
-        }
-    })
+    // Carrega o tema salvo
+    const tema = loadTema();
+
+    selectTema.value = tema;
+
+    document.body.classList.remove(
+        "escuro",
+        "claro",
+        "colorido"
+    );
+
+    document.body.classList.add(tema);
+
+    selectTema.addEventListener("change", () => {
+
+        const tema = selectTema.value;
+
+        document.body.classList.remove(
+            "escuro",
+            "claro",
+            "colorido"
+        );
+
+        document.body.classList.add(tema);
+
+        saveTema(tema);
+    });
 }
 
 //MUDA O TEMA
@@ -196,3 +207,41 @@ document.addEventListener("focusin", (e) => {
         deleteAccountModal.classList.remove("active");
     }
 });
+
+export function loadTema() {
+
+    const currentUser =
+        JSON.parse(localStorage.getItem("currentUser"));
+
+    return currentUser?.tema || "escuro"; // tema padrão
+}
+
+export function saveTema(tema) {
+
+    const currentUser =
+        JSON.parse(localStorage.getItem("currentUser"));
+
+    const users =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+    currentUser.tema = tema;
+
+    const updatedUsers = users.map(user => {
+
+        if (user.id === currentUser.id) {
+            return currentUser;
+        }
+
+        return user;
+    });
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(updatedUsers)
+    );
+
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(currentUser)
+    );
+}

@@ -1,0 +1,1 @@
+Necessário Extensão do VS Code Live Server para funcionamento correto.

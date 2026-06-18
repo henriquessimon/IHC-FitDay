@@ -17,6 +17,12 @@ if ("Notification" in window) {
 
 const rotinaExercicios = loadRotina();
 
+console.log(rotinaExercicios.map(d => ({
+    dia: d.dia,
+    interval: d.interval,
+    tipo: typeof d.interval
+})));
+
 //ARRAY DE OBJETOS COM CADA DIA DE EXERCÍCIO INCIAL
 
 window.rotinaExercicios = rotinaExercicios;
@@ -55,34 +61,57 @@ document.addEventListener('change', (e) => {
     }
 })
 
-//INICIAR/PAUSAR TIMER
-let time
 
 document.addEventListener('click', (e) => {
-    if(e.target.classList.contains("timerButton")) {
-        const dia = e.target.closest(".dayCard").dataset.day
-        const barra = e.target.closest(".dayCard").querySelector(".barraTreino")
-        const meta = rotinaExercicios.find(r => r.dia == dia).meta_exercicio
-        const contador = e.target.closest(".dayCard").querySelector(".contador")
-        const objDia = rotinaExercicios.find(d => d.dia == dia)
 
-        if(!e.target.classList.contains("pausa")) {
-            time = startTimer(objDia, barra, meta, contador, e.target);
-        } else {
-            time = pauseTimer(objDia)
-        }
+    if(!e.target.classList.contains("timerButton"))
+        return;
 
-        if(!time && time != 0) {
-            e.target.classList.remove("inicia")
-            e.target.classList.add("pausa")
-            e.target.textContent = "Pausar"
-        } else if (time && time == 1) {
-            e.target.classList.remove("pausa")
-            e.target.classList.add("inicia")
-            e.target.textContent = "Retomar"
+    const dia =
+        e.target.closest(".dayCard").dataset.day;
+
+    const barra =
+        e.target.closest(".dayCard")
+            .querySelector(".barraTreino");
+
+    const contador =
+        e.target.closest(".dayCard")
+            .querySelector(".contador");
+
+    const objDia =
+        rotinaExercicios.find(d => d.dia == dia);
+
+    const meta =
+        objDia.meta_exercicio;
+
+    if(objDia.interval) {
+
+        pauseTimer(objDia);
+
+        e.target.classList.remove("pausa");
+        e.target.classList.add("inicia");
+        e.target.textContent = "Retomar";
+
+    } else {
+
+       const iniciou = startTimer(
+            objDia,
+            barra,
+            meta,
+            contador
+        );
+
+        if(iniciou) {
+            e.target.classList.remove("inicia");
+            e.target.classList.add("pausa");
+            e.target.textContent = "Pausar";
+            e.setAttribute(
+                "aria-label",
+                "Pausar cronômetro do treino"
+            );
         }
     }
-})
+});
 
 //ADICIONA META DE AGUA E ATUALIZA QUANTIDADE BEBIDO
 document.addEventListener('change', (e) => {
@@ -90,6 +119,7 @@ document.addEventListener('change', (e) => {
     const objDia = rotinaExercicios.find(d => d.dia == dia)
     if (e.target.classList.contains("inserirMetaAgua")) {
         objDia.meta_agua = Number(e.target.value)
+        updateAguaStatus(objDia);
         saveRotina(rotinaExercicios);
         e.target.closest(".dayCard").querySelector(".barraAgua").max = e.target.value
     }
@@ -101,6 +131,13 @@ document.addEventListener('change', (e) => {
             return
         }
         objDia.ml_bebidos = Number(e.target.value)
+
+        const card = e.target.closest(".dayCard");
+
+        refreshAgua(card, objDia);
+
+        hydrateStatus(card, objDia);
+        
         saveRotina(rotinaExercicios);
         e.target.closest(".dayCard").querySelector(".barraAgua").value = e.target.value
 
@@ -133,12 +170,12 @@ function formatTime(seconds) {
 }
 
 function startTimer(diaObj, progress, totalSeconds, display){
-
-    if(diaObj.interval) return;
+    
+    if(diaObj.interval) return false;
 
     if(diaObj.meta_exercicio <= 0) {
         alert("Defina um tempo de treino primeiro")
-        return 0
+        return false
     }
 
     let start = Date.now() - diaObj.tempo_feito * 1000;
@@ -150,6 +187,16 @@ function startTimer(diaObj, progress, totalSeconds, display){
         );
 
         diaObj.tempo_feito = elapsed;
+
+        updateTreinoStatus(diaObj);
+
+        const card = document.querySelector(
+            `.dayCard[data-day="${diaObj.dia}"]`
+        );
+
+        if(card) {  
+            hydrateStatus(card, diaObj);
+        }
 
         if(elapsed % 10 === 0) {
             saveRotina(rotinaExercicios);
@@ -179,6 +226,8 @@ function startTimer(diaObj, progress, totalSeconds, display){
         }
 
     }, 1000);
+
+    return true
 }
 
 function pauseTimer(diaObj){
@@ -202,6 +251,8 @@ function attMetaDia(dia, meta) {
 
     // reseta notificação
     diaSemana.notificacaoTreinoCompleto = false;
+
+    updateTreinoStatus(diaSemana);
 
     saveRotina(rotinaExercicios);
 
@@ -379,6 +430,7 @@ function hydrateUIFromCache() {
         hydrateTreino(card, diaObj);
         hydrateAgua(card, diaObj);
         hydrateHora(card, diaObj);
+        hydrateStatus(card, diaObj);
     });
 }
 
@@ -392,6 +444,9 @@ function hydrateTreino(card, diaObj) {
 
     const contador =
         card.querySelector(".contador");
+
+    const button =
+        card.querySelector(".timerButton");
 
     //========================
     // INPUT META
@@ -420,6 +475,15 @@ function hydrateTreino(card, diaObj) {
         formatTime(
             diaObj.tempo_feito
         );
+
+        // NOVO TRECHO
+    if (
+        diaObj.tempo_feito > 0
+    ) {
+        button.classList.remove("pausa");
+        button.classList.add("inicia");
+        button.textContent = "Retomar";
+    }
 }
 
 function hydrateAgua(card, diaObj) {
@@ -566,5 +630,139 @@ document.addEventListener("click", (e) => {
     }
 });
 
+function hydrateStatus(card, diaObj) {
+
+    const treinoStatus =
+        card.querySelector(".treinoStatus");
+
+    const aguaStatus =
+        card.querySelector(".aguaStatus");
+
+    updateStatusElement(
+        treinoStatus,
+        diaObj.metaTreinoStatus
+    );
+
+    updateStatusElement(
+        aguaStatus,
+        diaObj.metaAguaStatus
+    );
+}
+
+function updateStatusElement(element, status) {
+
+    if(!element) return;
+
+    element.textContent = status;
+
+    element.classList.remove(
+        "status-nao-iniciado",
+        "status-em-andamento",
+        "status-concluido",
+        "status-nao-concluido"
+    );
+
+    switch(status) {
+        case "Não Iniciado":
+            element.classList.add(
+                "status-nao-iniciado"
+            );
+            break;
+
+        case "Em Andamento":
+            element.classList.add(
+                "status-em-andamento"
+            );
+            break;
+
+        case "Concluído":
+            element.classList.add(
+                "status-concluido"
+            );
+            break;
+
+        case "Não Concluído":
+            element.classList.add(
+                "status-nao-concluido"
+            );
+            break;
+    }
+}
+
 hydrateUIFromCache();
 updateDayNavigationButtons();
+
+function updateTreinoStatus(diaObj) {
+
+    if(diaObj.meta_exercicio <= 0) {
+        diaObj.metaTreinoStatus = "Não Iniciado";
+        return;
+    }
+
+    if(diaObj.tempo_feito >= diaObj.meta_exercicio) {
+        diaObj.metaTreinoStatus = "Concluído";
+        return;
+    }
+
+    if(diaObj.tempo_feito > 0) {
+        diaObj.metaTreinoStatus = "Em Andamento";
+        return;
+    }
+
+    diaObj.metaTreinoStatus = "Não Iniciado";
+}
+
+function updateAguaStatus(diaObj) {
+
+    if(diaObj.meta_agua <= 0) {
+        diaObj.metaAguaStatus = "Não Iniciado";
+        return;
+    }
+
+    if(diaObj.ml_bebidos >= diaObj.meta_agua) {
+        diaObj.metaAguaStatus = "Concluído";
+        return;
+    }
+
+    if(diaObj.ml_bebidos > 0) {
+        diaObj.metaAguaStatus = "Em Andamento";
+        return;
+    }
+
+    diaObj.metaAguaStatus = "Não Iniciado";
+}
+
+function refreshAgua(card, diaObj) {
+
+    const barra = card.querySelector(".barraAgua");
+    const status = card.querySelector(".aguaStatus");
+
+    // Atualiza a barra
+    barra.max = diaObj.meta_agua;
+    barra.value = diaObj.ml_bebidos;
+
+    // Atualiza os atributos para leitores de tela
+    const porcentagem =
+        diaObj.meta_agua > 0
+            ? Math.round((diaObj.ml_bebidos / diaObj.meta_agua) * 100)
+            : 0;
+
+    barra.setAttribute(
+        "aria-valuenow",
+        porcentagem
+    );
+
+    barra.setAttribute(
+        "aria-valuetext",
+        `${porcentagem}% da meta de água concluída`
+    );
+
+    // Atualiza o status
+    updateAguaStatus(diaObj);
+    updateStatusElement(
+        status,
+        diaObj.metaAguaStatus
+    );
+
+    saveRotina(rotinaExercicios);
+}

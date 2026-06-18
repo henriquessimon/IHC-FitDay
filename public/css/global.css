@@ -38,16 +38,10 @@ header nav ul {
 
 header nav ul li {
     color: var(--text-color);
-    padding: 5px 15px;
     cursor: pointer;
     font-size: 18px;
     border-radius: 7px;
     transition: background 0.4s ease, color 0.4s ease;
-}
-
-header nav ul li:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
 }
 
 .headerPage {
@@ -193,7 +187,8 @@ select:focus {
 
 .selectTemaLabel span {
     position: relative;
-    top: 40%;
+    top: 45%;
+    font-size: 20px;
 }
 
 .selectTemaLabel::after {
@@ -418,7 +413,7 @@ button {
 }
 
 .buttonsNavigation {
-    padding: 0px 0px;
+    padding: 5px 15px;
     font-size: 18px;
     border-radius: 0px;
     color: var(--text-color);
@@ -430,5 +425,28 @@ button {
 }
 
 .buttonsNavigation:hover {
-    color: var(--text-color-cards) !important;
+    color: var(--bg-color) !important;
+    background-color: var(--text-color);
+    border-radius: 7px;
+}
+
+@media (max-width: 1400px) {
+
+    .headerPage {
+        padding: 20px 10px 15px 10px;
+        height: auto;
+        min-height: 60px;
+    }
+
+    header nav ul li {
+        padding: 0;
+    }
+
+    .buttonsNavigation {
+        padding: 8px 10px;
+        font-size: 18px;
+        border-radius: 6px;
+        white-space: nowrap;
+    }
+
 }

@@ -9,7 +9,7 @@ export function DayCard(diaRotina) {
             <h3>Tempo Exercicio</h3>
             <div class="divContadorMetaExercicio">
                 <span>Inicio</span>
-                <progress value="0" max="100"></progress>
+                <progress aria-label="Progresso do treino" value="0" max="100"></progress>
             </div>
         `;
     } else { //CASO O USUARIO NÃO TENHA PREENCHIDO A META
@@ -27,36 +27,72 @@ export function DayCard(diaRotina) {
         `;
     }
 
+    console.log(diaRotina)
+
     //RETORNAMOS O HTML DO CARD DO DIA FORMATADO CORRETAMENTE PARA INSERIR NA TELA
     return `
-        <article class="dayCard" data-day="${diaRotina.dia}">
+        <article class="dayCard" data-day="${diaRotina.dia}" aria-labelledby="titulo-${diaRotina.dia}">
             <header class="headerDayCard divsCard">
                 <div class="dateDiv">
-                    <h2>${diaRotina.dia}</h2>
-                    <label>Hora <input type="time" class="horaTreino"/></label>
+                    <h2 id="titulo-${diaRotina.dia}">${diaRotina.dia}</h2>
+                    <label for="horaTreino">
+                        Hora do treino
+                    </label>
+
+                    <input
+                        id="horaTreino"
+                        type="time"
+                        class="horaTreino"
+                    />
                 </div>
             </header>
             <section class="BodyDayCard divsCard">
-                <section class="meta_exercicio" id="exercicioMetaCard">
+                <section class="meta_exercicio cardSection" id="exercicioMetaCard">
                     <div class="addMetaDia">
                         
                             <h3>Exercício</h3>
+                            <label for="metaTreino">Tempo de treino(h/m)</label>
+                            <input type="time" class="metaTreino" name="metaTreino">
                             <div>
-                                <label for="metaTreino">Tempo de treino(h/m)</label>
-                                <input type="time" class="metaTreino" name="metaTreino">
-                            </div>
-                            <div>
-                                <progress value="0" max="100" class="barraTreino"></progress>
                                 <div>
-                                    <span class="contador">0h:0m:0s</span>
-                                    <button class="timerButton inicia">Inciar</button>
+                                    <span
+                                        class="contador"
+                                        aria-live="polite"
+                                    >
+                                        0 horas 0 minutos 0 segundos
+                                    </span>
+                                    <button
+                                        class="timerButton inicia"
+                                        aria-label="Iniciar cronômetro do treino"
+                                    >
+                                        Iniciar
+                                    </button>
                                 </div>
                             </div>
+                            <label for="barraTreino">
+                                Progresso do treino
+                            </label>
+
+                            <progress
+                                id="barraTreino"
+                                class="barraTreino"
+                                value="40"
+                                max="100"
+                                aria-label="Progresso do treino"
+                            ></progress>
+                            <p
+                                class="statusMessage treinoStatus"
+                                aria-live="polite"
+                            >
+                                Meta atingida
+                            </p>
                     </div>
                 </section>
-                <section class="metaAguaSection" id="aguaMetaCard">
+                <section class="metaAguaSection cardSection" id="aguaMetaCard" aria-labelledby="tituloAgua">
                     <div>
-                        <label for="meta_agua">Meta de Água</label>
+                        <h3 id="tituloAgua">
+                            Meta de água
+                        </h3>
                         <input 
                             type="number" 
                             name="meta_agua"
@@ -65,7 +101,7 @@ export function DayCard(diaRotina) {
                         />
                     </div>
                     <div>
-                        <label for="mls_bebidos_hoje">Água bebida</label>
+                        <label for="mls_bebidos_hoje">Água bebida(ml)</label>
                         <input 
                             type="number" 
                             name="mls_bebidos_hoje" 
@@ -75,16 +111,32 @@ export function DayCard(diaRotina) {
                         />
                     </div>
                     <div class="barraProgresso aguaProgresso">
-                        <progress value="" max="100" class="barraAgua"></progress>
+                        <progress 
+                            value="" 
+                            max="100" 
+                            class="barraAgua"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="0"
+                            aria-valuetext="0% da meta de água concluída"
+                        >
+                        </progress>
                     </div>
+
+                    <p class="statusMessage aguaStatus">
+                        ${diaRotina.metaAguaStatus}
+                    </p>
                 </section>
             </section>
             <div class="dayButtons">
-                <button class="dayNavigationButton previousDayButton">
-                    ← Dia anterior
+                <button
+                    class="dayNavigationButton nextDayButton"
+                    aria-label="Ir para o dia anterior"
+                >
+                ← Dia anterior
                 </button>
 
-                <button class="dayNavigationButton nextDayButton">
+                <button class="dayNavigationButton nextDayButton" aria-label="Ir para o dia anterior">
                     Próximo dia →
                 </button>
             </div>
